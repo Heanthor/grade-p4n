@@ -146,8 +146,9 @@ def main(start_dir):
 
         # build windows path
         if platform.system() == "Windows":
+            print "Folder Path %s" % folder_path
             folder_path = folder_path.replace("/", "\\")
-            subprocess.call("explorer '%s'" % folder_path, shell=True)
+            subprocess.call("start %s" % folder_path, shell=True)
         else:
             subprocess.call("open '%s'" % folder_path, shell=True)
 
@@ -195,6 +196,10 @@ def main(start_dir):
         raw_input("\n")
 
 if __name__ == "__main__":
+    if sys.version_info >= (3, 0):
+    sys.stdout.write("Sorry, requires Python 2.x, not Python 3.x\n")
+    sys.exit(1)
+    
     parser = argparse.ArgumentParser()
     parser.add_argument('start_dir', type=str,
     help="Path to the folder containing project folders")
